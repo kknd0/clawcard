@@ -1,0 +1,65 @@
+---
+title: MCP Server Setup
+description: Use ClawCard with Claude and other MCP-compatible AI tools.
+---
+
+ClawCard includes a [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that enables AI assistants to manage your virtual cards.
+
+## Setup with Claude Code
+
+Register the MCP server:
+
+```bash
+claude mcp add clawcard -- npx clawcard-mcp
+```
+
+That's it. Claude Code will now have access to all ClawCard tools.
+
+## Setup with Claude Desktop
+
+Add to your Claude Desktop MCP configuration file:
+
+```json
+{
+  "mcpServers": {
+    "clawcard": {
+      "command": "npx",
+      "args": ["clawcard-mcp"]
+    }
+  }
+}
+```
+
+## Available tools
+
+| Tool | Description |
+|------|-------------|
+| `login_status` | Check if you're authenticated with Privacy.com |
+| `list_cards` | List all cards (filter by state or creation month) |
+| `get_card` | Get full card details including PAN, expiry, and CVC |
+| `create_burner` | Create a single-use burner card |
+| `create_card` | Create a reusable card with monthly spending limit |
+| `update_card` | Update card name, limit, or merchant category |
+| `freeze_card` | Pause a card to prevent charges |
+| `unfreeze_card` | Resume a paused card |
+| `close_card` | Permanently close a card |
+| `list_categories` | List available merchant categories |
+| `list_transactions` | View transaction history with filters |
+
+## Example usage
+
+Once the MCP server is registered, you can ask Claude:
+
+- "Create a $25 burner card for digitalocean.com"
+- "Show me my active cards"
+- "Freeze the Netflix card"
+- "What did I spend last week?"
+- "Close the card ending in 7291"
+
+Claude will use the appropriate MCP tools to carry out your requests.
+
+## Requirements
+
+- Node.js 18+
+- You must be logged in (`clawcard login`) before using MCP tools
+- The MCP server uses the same credentials stored at `~/.clawcard/config.json`

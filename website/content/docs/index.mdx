@@ -1,0 +1,86 @@
+---
+title: Getting Started
+description: Install ClawCard and create your first virtual card in under a minute.
+---
+
+## Install
+
+Run ClawCard directly with npx — no global install needed:
+
+```bash
+npx clawcard
+```
+
+Or install globally:
+
+```bash
+npm install -g clawcard
+```
+
+## Login
+
+Authenticate with your Privacy.com account:
+
+```bash
+clawcard login -e you@email.com
+```
+
+You'll receive a one-time code via email. Enter it to complete authentication.
+
+Your credentials are stored securely at `~/.clawcard/config.json` with `0600` permissions.
+
+## Create your first card
+
+### Burner card (single-use)
+
+Perfect for one-time purchases. The amount rounds up to the next whole dollar:
+
+```bash
+clawcard burner 25.50 -m "amazon.com"
+```
+
+```
+Burner Card Created
+  Number:   4242 8310 •••• 7291
+  CVC:      •••
+  Merchant: amazon.com
+  Limit:    $26.00
+  Type:     single use
+  Status:   active
+```
+
+### Reusable card (subscriptions)
+
+For recurring payments with a monthly spending limit:
+
+```bash
+clawcard create -n "Netflix" -l 23 -c entertainment
+```
+
+```
+Reusable Card Created
+  Name:     Netflix
+  Category: entertainment
+  Limit:    $23.00/monthly
+  Status:   active
+```
+
+## Card lifecycle
+
+```
+ONE-TIME PURCHASE
+  burner 25.50 -m "amazon.com"  →  active  →  payment  →  exhausted
+
+RECURRING PAYMENT
+  create -n "Spotify" -l 16     →  active  →  payment
+                                    done <id>  →  frozen
+                                    use <id>   →  active  →  ...
+```
+
+Use `clawcard done <id>` to freeze a card after payment, and `clawcard use <id>` to unfreeze it when you need it again.
+
+## Next steps
+
+- [CLI Reference](/docs/cli-reference) — All 14 commands with examples
+- [MCP Setup](/docs/mcp-setup) — Use ClawCard with Claude and other AI tools
+- [Claude Code Skill](/docs/claude-code) — Install the Claude Code skill

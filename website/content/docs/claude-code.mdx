@@ -1,0 +1,51 @@
+---
+title: Claude Code Skill
+description: Install the ClawCard skill for guided card management in Claude Code.
+---
+
+The ClawCard skill gives Claude Code guided knowledge about card management workflows and best practices.
+
+## Installation
+
+Install via [skills.sh](https://skills.sh):
+
+```bash
+npx skills add kknd0/clawcard
+```
+
+## What the skill provides
+
+The skill teaches Claude Code how to:
+
+- Check login status before running commands
+- Create burner and reusable cards with proper parameters
+- Use the freeze/unfreeze workflow for recurring payments
+- Handle merchant categories with prefix matching
+- View and filter transaction history
+- Confirm before permanently closing cards
+
+## Skill vs MCP server
+
+| | Skill | MCP Server |
+|---|---|---|
+| **How it works** | Adds context to Claude's prompt | Gives Claude callable tools |
+| **Install** | `npx skills add kknd0/clawcard` | `claude mcp add clawcard -- npx clawcard-mcp` |
+| **Execution** | Claude runs CLI via Bash | Claude calls MCP tools directly |
+| **Best for** | Guided workflows with explanations | Direct programmatic access |
+
+You can use both together — the skill provides workflow guidance while the MCP server provides direct tool access.
+
+## Example interactions
+
+After installing the skill, try:
+
+- "Create a card for my Spotify subscription at $16/month"
+- "I need a one-time card for a $50 purchase on newegg.com"
+- "Show me all my frozen cards"
+- "What transactions happened this week?"
+
+## Prerequisites
+
+1. Node.js 18+
+2. ClawCard installed: `npm install -g clawcard`
+3. Logged in: `clawcard login`

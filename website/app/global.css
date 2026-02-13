@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+@theme {
+  --font-sans: var(--font-ibm-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+/* ── Override Fumadocs accent to violet in dark mode ── */
+.dark {
+  --primary: 263 83% 58%;
+  --primary-foreground: 0 0% 100%;
+  --ring: 263 83% 58%;
+  --background: 240 43% 7%;
+  --foreground: 210 40% 98%;
+  --card: 240 43% 12%;
+  --card-foreground: 210 40% 98%;
+  --muted: 240 38% 16%;
+  --muted-foreground: 215 16% 65%;
+  --accent: 240 38% 16%;
+  --accent-foreground: 210 40% 98%;
+  --border: 263 83% 58% / 0.15;
+  --secondary: 240 38% 16%;
+  --secondary-foreground: 210 40% 98%;
+}
+
+/* ── Dark theme for marketing pages ── */
+.marketing-page {
+  --mp-bg: #0A0A1A;
+  --mp-bg-card: #12122A;
+  --mp-bg-hover: #1A1A3A;
+  --mp-bg-alt: #0D0D22;
+  --mp-violet: #7C3AED;
+  --mp-pink: #EC4899;
+  --mp-cyan: #06B6D4;
+  --mp-green: #10B981;
+  --mp-text: #F8FAFC;
+  --mp-text-secondary: #94A3B8;
+  --mp-text-muted: #64748B;
+  --mp-border: rgba(124, 58, 237, 0.15);
+
+  background: var(--mp-bg);
+  color: var(--mp-text);
+}
+
+/* ── Radial glow helpers ── */
+.glow-violet {
+  background: radial-gradient(600px circle at 30% 20%, rgba(124, 58, 237, 0.15), transparent 60%);
+}
+.glow-pink {
+  background: radial-gradient(500px circle at 70% 40%, rgba(236, 72, 153, 0.1), transparent 60%);
+}
+.glow-center {
+  background: radial-gradient(600px circle at 50% 50%, rgba(124, 58, 237, 0.12), transparent 60%);
+}
+
+/* ── Animations ── */
+@keyframes card-shine {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) rotate(25deg); }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotateY(-8deg) rotateX(6deg); }
+  50% { transform: translateY(-10px) rotateY(-8deg) rotateX(6deg); }
+}
+
+.animate-card-shine {
+  animation: card-shine 3s ease-in-out infinite;
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}

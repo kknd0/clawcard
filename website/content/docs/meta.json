@@ -1,0 +1,9 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "index",
+    "cli-reference",
+    "mcp-setup",
+    "claude-code"
+  ]
+}

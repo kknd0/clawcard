@@ -1,0 +1,188 @@
+---
+title: CLI Reference
+description: Complete reference for all ClawCard CLI commands.
+---
+
+## Authentication
+
+### `login`
+
+Authenticate with Privacy.com via email and one-time code.
+
+```bash
+clawcard login -e you@email.com
+```
+
+| Option | Description |
+|--------|-------------|
+| `-e, --email <email>` | Your Privacy.com email address |
+
+### `logout`
+
+Clear saved credentials from local storage.
+
+```bash
+clawcard logout
+```
+
+## Card creation
+
+### `burner`
+
+Create a single-use burner card. The amount rounds up to the next whole dollar.
+
+```bash
+clawcard burner <amount> -m <merchant>
+```
+
+| Option | Description |
+|--------|-------------|
+| `<amount>` | Payment amount in dollars |
+| `-m, --merchant <name>` | Merchant name (required) |
+
+**Example:**
+
+```bash
+clawcard burner 49.99 -m "newegg.com"
+# Creates a $50 single-use card locked to newegg.com
+```
+
+### `create`
+
+Create a reusable card with a monthly spending limit.
+
+```bash
+clawcard create -n <name> -l <limit> [-c <category>]
+```
+
+| Option | Description |
+|--------|-------------|
+| `-n, --name <name>` | Card name (required) |
+| `-l, --limit <dollars>` | Monthly spending limit in dollars (required) |
+| `-c, --category <cat>` | Merchant category (optional, prefix match) |
+
+**Example:**
+
+```bash
+clawcard create -n "Spotify" -l 16 -c subscriptions
+```
+
+## Card management
+
+### `list`
+
+List all cards, optionally filtered by state or creation month.
+
+```bash
+clawcard list [--state <state>] [--month <YYYY-MM>]
+```
+
+| Option | Description |
+|--------|-------------|
+| `--state <state>` | Filter: `active`, `frozen`, or `closed` |
+| `--month <YYYY-MM>` | Filter by creation month |
+
+### `show`
+
+Display full card details including card number and CVC.
+
+```bash
+clawcard show <card-id>
+```
+
+### `update`
+
+Update an existing card's name, spending limit, or category.
+
+```bash
+clawcard update <card-id> [--name <name>] [--limit <limit>] [--category <cat>]
+```
+
+### `use`
+
+Unfreeze a paused card so it can accept charges.
+
+```bash
+clawcard use <card-id>
+```
+
+### `done`
+
+Freeze a card after payment. Use `--fail` to also zero the spending limit.
+
+```bash
+clawcard done <card-id> [--fail]
+```
+
+| Option | Description |
+|--------|-------------|
+| `--fail` | Zero the spending limit (for failed/disputed charges) |
+
+### `close`
+
+Permanently close a card. This cannot be undone.
+
+```bash
+clawcard close <card-id>
+```
+
+## Utilities
+
+### `categories`
+
+List all available merchant categories.
+
+```bash
+clawcard categories
+```
+
+Available categories: `automotive`, `cleaning`, `digital`, `dining`, `education`, `entertainment`, `groceries`, `health`, `home`, `nonprofit`, `pets`, `professional`, `retail`, `sports`, `subscriptions`, `travel`.
+
+Categories support prefix matching: `-c din` matches `dining`.
+
+### `transactions`
+
+View transaction history with optional filters.
+
+```bash
+clawcard transactions [options]
+```
+
+| Option | Description | Example |
+|--------|-------------|---------|
+| `--card <id>` | Filter by card ID | `--card 53125488` |
+| `--since <date>` | Date range | `--since 7d` or `--since 2025-01` |
+| `--limit <n>` | Max results (default: 20) | `--limit 10` |
+| `--status <s>` | Transaction status | `--status settled` |
+| `--merchant <name>` | Substring match on merchant | `--merchant amazon` |
+
+Alias: `clawcard txns`
+
+**Example:**
+
+```bash
+clawcard txns --since 7d --status settled --limit 5
+```
+
+## Card states
+
+```
+    ┌─────────┐     done      ┌─────────┐
+    │  OPEN   │──────────────►│ PAUSED  │
+    │ (active)│◄──────────────│ (frozen)│
+    └────┬────┘     use       └─────────┘
+         │
+         │ close
+         ▼
+    ┌─────────┐
+    │ CLOSED  │  (permanent, cannot be undone)
+    └─────────┘
+```
+
+## Currency reference
+
+| Field | Format | Example |
+|-------|--------|---------|
+| `spendLimit` | Dollars (integer) | `66` = $66.00 |
+| `spentTotal` | Dollars (float) | `2.95` = $2.95 |
+| Transaction `amount` | Cents (divide by 100) | `295` = $2.95 |
