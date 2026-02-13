@@ -36,6 +36,7 @@ clawcard login
 | `clawcard update <id> [--name N] [--limit L] [--category C]` | Update a card |
 | `clawcard close <id>` | Permanently close a card |
 | `clawcard categories` | List merchant categories |
+| `clawcard transactions [--card ID] [--since 7d] [--limit 20] [--status approved] [--merchant name]` | Show transaction history |
 
 ## Instructions
 
@@ -50,3 +51,4 @@ Based on the user's request, execute the appropriate ClawCard command(s) using t
 7. All output must be in **English**
 
 If the user asks to see their cards, run `clawcard list`.
+If the user asks about transactions or spending history, run `clawcard transactions`.

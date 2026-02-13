@@ -2,6 +2,7 @@ import { describe, it, mock, beforeEach } from "node:test";
 import assert from "node:assert/strict";
 import {
   maskPan, formatDollars, formatState, resolveCategory, CATEGORIES,
+  formatCents, formatTxStatus,
 } from "../lib/format.js";
 
 // ---------------------------------------------------------------------------
@@ -106,5 +107,45 @@ describe("ceil dollars (burner rounding)", () => {
   });
   it("rounds tiny amount", () => {
     assert.equal(Math.ceil(0.01), 1);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 4. Transaction Format Helpers
+// ---------------------------------------------------------------------------
+
+describe("formatCents", () => {
+  it("converts cents to dollars", () => {
+    assert.equal(formatCents(295), "$2.95");
+  });
+  it("handles zero", () => {
+    assert.equal(formatCents(0), "$0.00");
+  });
+  it("handles null", () => {
+    assert.equal(formatCents(null), "$0.00");
+  });
+  it("handles large amounts", () => {
+    assert.equal(formatCents(150000), "$1500.00");
+  });
+});
+
+describe("formatTxStatus", () => {
+  it("SETTLED => settled", () => {
+    assert.ok(formatTxStatus("SETTLED").includes("settled"));
+  });
+  it("AUTHORIZED => authorized", () => {
+    assert.ok(formatTxStatus("AUTHORIZED").includes("authorized"));
+  });
+  it("VOIDED => voided", () => {
+    assert.ok(formatTxStatus("VOIDED").includes("voided"));
+  });
+  it("DECLINED => declined", () => {
+    assert.ok(formatTxStatus("DECLINED").includes("declined"));
+  });
+  it("case insensitive", () => {
+    assert.ok(formatTxStatus("settled").includes("settled"));
+  });
+  it("unknown => lowercase", () => {
+    assert.equal(formatTxStatus("UNKNOWN"), "unknown");
   });
 });

@@ -3,6 +3,7 @@ import { Command } from "commander";
 import {
   cmdLogin, cmdLogout, cmdBurner, cmdUse, cmdDone,
   cmdCreate, cmdList, cmdShow, cmdUpdate, cmdClose, cmdCategories,
+  cmdTransactions,
 } from "../lib/cli.js";
 
 const program = new Command()
@@ -77,5 +78,16 @@ program
   .alias("cat")
   .description("List merchant categories")
   .action(cmdCategories);
+
+program
+  .command("transactions")
+  .alias("txns")
+  .description("Show transaction history")
+  .option("--card <id>", "Filter by card UUID")
+  .option("--since <date>", "Date filter (e.g. 7d, 2025-01, 2025-01-15)")
+  .option("--limit <n>", "Max results (default: 20)", "20")
+  .option("--status <status>", "Filter by status (settled, authorized, voided)")
+  .option("--merchant <name>", "Filter by merchant name")
+  .action(cmdTransactions);
 
 program.parse();

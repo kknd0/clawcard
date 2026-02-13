@@ -158,5 +158,45 @@ server.tool(
   }
 );
 
+server.tool(
+  "list_transactions",
+  "List transaction history with optional filters",
+  {
+    card_id: z.string().optional().describe("Filter by card UUID"),
+    since: z.string().optional().describe("Date filter (e.g. 7d, 2025-01, 2025-01-15)"),
+    limit: z.number().int().optional().describe("Max results (default: 20)"),
+    status: z.string().optional().describe("Filter by status (settled, authorized, voided)"),
+    merchant: z.string().optional().describe("Filter by merchant name (substring match)"),
+  },
+  async ({ card_id, since, limit, status, merchant }) => {
+    checkLogin();
+    const params = {};
+    if (card_id) params.cardUuid = card_id;
+    if (since) {
+      const m = since.match(/^(\d+)d$/);
+      if (m) {
+        const d = new Date();
+        d.setDate(d.getDate() - parseInt(m[1], 10));
+        params.begin = d.toISOString();
+      } else {
+        const parsed = new Date(since);
+        if (!isNaN(parsed.getTime())) params.begin = parsed.toISOString();
+      }
+    }
+    let result = await api.listTransactions(params);
+    let txns = Array.isArray(result) ? result : (result.data || result.transactions || []);
+    if (status) {
+      const target = status.toUpperCase();
+      txns = txns.filter((t) => (t.statusDescription || "").toUpperCase() === target);
+    }
+    if (merchant) {
+      const q = merchant.toLowerCase();
+      txns = txns.filter((t) => (t.descriptor || "").toLowerCase().includes(q));
+    }
+    txns = txns.slice(0, limit || 20);
+    return { content: [{ type: "text", text: JSON.stringify(txns) }] };
+  }
+);
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
