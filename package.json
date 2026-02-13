@@ -1,6 +1,6 @@
 {
   "name": "clawcard",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Virtual card management from the command line. Built on the Privacy.com API.",
   "type": "module",
   "bin": {

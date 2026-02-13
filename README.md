@@ -123,6 +123,7 @@ Reusable Card Created
 | `update <id> [--name] [--limit] [--category]` | Update a card |
 | `close <id>` | Permanently close a card |
 | `categories` | List merchant categories |
+| `transactions [options]` | Show transaction history |
 
 ---
 
@@ -163,6 +164,46 @@ PAYMENT FAILED
 
 ---
 
+## Transaction History
+
+View your spending history across all cards or filter by card, date, status, or merchant.
+
+```bash
+# Recent transactions (default: 20)
+clawcard transactions
+
+# Filter by status
+clawcard txns --status settled
+
+# Filter by merchant
+clawcard txns --merchant spaceship
+
+# Last 7 days, specific card
+clawcard txns --since 7d --card <card-id>
+
+# Combine filters
+clawcard txns --since 2025-01 --status settled --limit 10
+```
+
+```
+  2025-07-17 00:10  SPACESHIP.COM* RAFHEY    -$2.90      settled    spaceship.com [44126155]
+  2025-07-03 21:56  RESUMEGENIUS.COM         -$2.95      settled    [43740979]
+
+  2 transaction(s)
+```
+
+### Filter Options
+
+| Flag | Example | Description |
+|------|---------|-------------|
+| `--card <id>` | `--card 53125488` | Filter by card ID |
+| `--since <date>` | `--since 7d` / `--since 2025-01` | Date range |
+| `--limit <n>` | `--limit 10` | Max results (default: 20) |
+| `--status <s>` | `--status settled` | settled, authorized, voided |
+| `--merchant <name>` | `--merchant amazon` | Substring match |
+
+---
+
 ## MCP Server
 
 ClawCard includes a [Model Context Protocol](https://modelcontextprotocol.io/) server for AI-assisted card management.
@@ -188,6 +229,7 @@ claude mcp add clawcard -- npx clawcard-mcp
 | `unfreeze_card` | Resume a paused card |
 | `close_card` | Permanently close a card |
 | `list_categories` | List merchant categories |
+| `list_transactions` | Transaction history with filters |
 
 ---
 
@@ -196,7 +238,7 @@ claude mcp add clawcard -- npx clawcard-mcp
 ```
 bin/
   cli.js               Entry point (#!/usr/bin/env node)
-  mcp-server.js        MCP server (10 tools)
+  mcp-server.js        MCP server (11 tools)
 lib/
   api.js               Privacy.com API client (native fetch)
   cli.js               All commands + input helpers
