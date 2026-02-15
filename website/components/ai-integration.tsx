@@ -1,89 +1,85 @@
-import { Bot } from "lucide-react";
+import { Bot, Sparkles, Terminal } from "lucide-react";
 
 export function AIIntegration() {
   return (
-    <section className="border-t border-[var(--mp-border)] px-6 py-20 md:py-24" style={{ background: "var(--mp-bg-alt)" }}>
-      <div className="mx-auto max-w-5xl">
-        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Left — text */}
+    <section className="px-6 py-24 md:py-32 border-t border-[var(--mp-border)] bg-[var(--mp-bg)] relative overflow-hidden">
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-600/10 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="mx-auto max-w-6xl relative z-10">
+        <div className="grid items-center gap-16 lg:grid-cols-2">
+
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--mp-violet)]/30 bg-[var(--mp-violet)]/10 px-3 py-1">
-              <Bot className="h-3.5 w-3.5 text-[var(--mp-violet)]" />
-              <span className="text-xs font-medium text-[var(--mp-violet)]">
-                AI Integration
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--mp-pink)]/30 bg-[var(--mp-pink)]/10 px-3 py-1 mb-6">
+              <Sparkles className="h-3.5 w-3.5 text-[var(--mp-pink)]" />
+              <span className="text-xs font-semibold uppercase tracking-widest text-[var(--mp-pink)]">
+                Native MCP Support
               </span>
             </div>
 
-            <h2 className="mt-5 font-mono text-2xl font-bold tracking-tight sm:text-3xl">
-              Your AI manages
-              <br />
-              your cards
+            <h2 className="font-sans text-4xl font-bold tracking-tight sm:text-5xl text-white mb-6">
+              Your AI manages <br/>
+              <span className="text-slate-500">its own cards.</span>
             </h2>
 
-            <p className="mt-4 text-sm leading-relaxed text-[var(--mp-text-secondary)]">
-              ClawCard includes a built-in{" "}
-              <strong className="font-medium text-[var(--mp-text)]">
-                MCP server
-              </strong>{" "}
-              that lets Claude Code, Claude Desktop, and other MCP-compatible
-              tools create, freeze, and manage cards through natural
-              conversation.
+            <p className="text-lg leading-relaxed text-slate-400 mb-8">
+              ClawCard includes a built-in <strong className="text-white font-medium">Model Context Protocol (MCP) server</strong>. Claude Code, Cursor, and other AI tools can create and freeze cards natively through natural conversation.
             </p>
 
-            <div className="mt-6 space-y-2">
-              <code className="block rounded-xl border border-[var(--mp-border)] px-4 py-2.5 font-mono text-[12px] text-[var(--mp-text-secondary)]" style={{ background: "var(--mp-bg-card)" }}>
-                <span className="text-[var(--mp-text-muted)]">$</span>{" "}
-                <span className="text-[var(--mp-text)]">claude mcp add</span>{" "}
-                <span className="text-[var(--mp-cyan)]">clawcard</span>{" "}
-                <span className="text-[var(--mp-text-muted)]">--</span>{" "}
-                <span className="text-[var(--mp-green)]">npx clawcard-mcp</span>
-              </code>
-              <code className="block rounded-xl border border-[var(--mp-border)] px-4 py-2.5 font-mono text-[12px] text-[var(--mp-text-secondary)]" style={{ background: "var(--mp-bg-card)" }}>
-                <span className="text-[var(--mp-text-muted)]">$</span>{" "}
-                <span className="text-[var(--mp-text)]">npx skills add</span>{" "}
-                <span className="text-[var(--mp-cyan)]">https://github.com/kknd0/clawcard</span>{" "}
-                <span className="text-[var(--mp-pink)]">--skill</span>{" "}
-                <span className="text-[var(--mp-green)]">clawcard</span>
-              </code>
+            <div className="space-y-3">
+              <div className="group relative">
+                <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-violet-500 to-pink-500 opacity-20 blur group-hover:opacity-40 transition duration-300" />
+                <code className="relative flex flex-col sm:flex-row sm:items-center gap-3 rounded-xl border border-white/10 bg-black/80 backdrop-blur-md px-5 py-4 font-mono text-[13px] text-slate-300">
+                  <span className="text-slate-600 hidden sm:block">$</span>
+                  <span>claude mcp add <span className="text-cyan-400">clawcard</span> -- <span className="text-emerald-400">npx clawcard-mcp</span></span>
+                </code>
+              </div>
             </div>
           </div>
 
-          {/* Right — example conversation */}
-          <div className="overflow-hidden rounded-2xl border border-[var(--mp-border)] shadow-lg shadow-[var(--mp-violet)]/5" style={{ background: "var(--mp-bg-card)" }}>
-            <div className="border-b border-[var(--mp-border)] px-5 py-3">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-[var(--mp-green)]" />
-                <span className="font-mono text-[11px] font-medium text-[var(--mp-text-muted)]">
-                  Claude Code
-                </span>
-              </div>
-            </div>
-            <div className="space-y-3 p-5 text-[13px]">
-              <ChatBubble role="user">
-                Create a $30 burner card for a domain purchase on namecheap.com
-              </ChatBubble>
-              <ChatBubble role="assistant">
-                I&apos;ll create a single-use burner card for your Namecheap
-                purchase.
-              </ChatBubble>
-              <div className="rounded-xl border border-[var(--mp-border)] p-3.5 font-mono text-[11px] leading-relaxed" style={{ background: "var(--mp-bg-hover)" }}>
-                <div className="font-semibold text-[var(--mp-green)]">
-                  Burner Card Created
+          <div className="relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.05] to-transparent p-1 shadow-2xl shadow-violet-500/10 backdrop-blur-xl">
+            <div className="rounded-xl bg-[#0A0A0F] overflow-hidden border border-white/5">
+
+              <div className="flex items-center justify-between border-b border-white/5 bg-white/[0.02] px-6 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                  <span className="font-sans text-sm font-medium text-slate-200">Claude 3.5 Sonnet</span>
                 </div>
-                <div className="mt-1.5 space-y-0.5 text-[var(--mp-text-muted)]">
-                  <div>
-                    Number: &nbsp;4242 •••• •••• 3847
+                <Bot className="h-4 w-4 text-slate-500" />
+              </div>
+
+              <div className="space-y-5 p-6 text-sm">
+                <ChatBubble role="user">
+                  Create a $30 burner card for a domain purchase on namecheap.com
+                </ChatBubble>
+                <ChatBubble role="assistant">
+                  I&apos;ll create a single-use burner card for your Namecheap purchase using ClawCard.
+                </ChatBubble>
+
+                <div className="ml-12 rounded-xl border border-violet-500/20 bg-violet-500/[0.05] p-4 font-mono text-[12px] leading-relaxed shadow-inner">
+                  <div className="flex items-center gap-2 mb-3 border-b border-white/5 pb-2">
+                    <Terminal className="h-3.5 w-3.5 text-violet-400" />
+                    <span className="font-semibold text-violet-300 uppercase tracking-wider text-[10px]">Tool Executed: clawcard.create</span>
                   </div>
-                  <div>Merchant: namecheap.com</div>
-                  <div>
-                    Limit: &nbsp;&nbsp; $30.00
+                  <div className="space-y-1.5 text-slate-300">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Number</span>
+                      <span className="text-white">4242 •••• •••• 3847</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Merchant</span>
+                      <span className="text-white">namecheap.com</span>
+                    </div>
+                    <div className="flex justify-between pt-1 border-t border-white/5">
+                      <span className="text-slate-500">Limit</span>
+                      <span className="text-emerald-400 font-bold">$30.00</span>
+                    </div>
                   </div>
                 </div>
+
+                <ChatBubble role="assistant">
+                  Done! Your $30 burner card is ready. It will automatically freeze after the purchase is complete.
+                </ChatBubble>
               </div>
-              <ChatBubble role="assistant">
-                Done! Your $30 burner card is ready. It will auto-exhaust after
-                the purchase.
-              </ChatBubble>
             </div>
           </div>
         </div>
@@ -92,23 +88,21 @@ export function AIIntegration() {
   );
 }
 
-function ChatBubble({
-  role,
-  children,
-}: {
-  role: "user" | "assistant";
-  children: React.ReactNode;
-}) {
+function ChatBubble({ role, children }: { role: "user" | "assistant"; children: React.ReactNode }) {
   const isUser = role === "user";
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
+      {!isUser && (
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-500/10 border border-violet-500/20 mr-3 mt-1">
+          <Bot className="h-4 w-4 text-violet-400" />
+        </div>
+      )}
       <div
-        className={`max-w-[85%] rounded-2xl px-4 py-2.5 ${
+        className={`max-w-[85%] rounded-2xl px-5 py-3.5 leading-relaxed shadow-md ${
           isUser
-            ? "bg-gradient-to-r from-[var(--mp-violet)] to-[var(--mp-pink)] text-white"
-            : "border border-[var(--mp-border)] text-[var(--mp-text-secondary)]"
+            ? "bg-gradient-to-br from-[var(--mp-violet)] to-[var(--mp-pink)] text-white rounded-tr-sm"
+            : "bg-white/[0.03] border border-white/5 text-slate-300 rounded-tl-sm"
         }`}
-        style={!isUser ? { background: "var(--mp-bg-hover)" } : undefined}
       >
         {children}
       </div>

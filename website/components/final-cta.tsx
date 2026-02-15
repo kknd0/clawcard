@@ -1,6 +1,5 @@
 "use client";
-
-import { ArrowRight, Copy, Check } from "lucide-react";
+import { ArrowRight, Copy, Check, Terminal } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -14,42 +13,40 @@ export function FinalCTA() {
   };
 
   return (
-    <section className="relative overflow-hidden px-6 py-24 md:py-32">
-      {/* Background glow */}
-      <div className="pointer-events-none absolute inset-0 glow-center" />
+    <section className="relative overflow-hidden border-t border-[var(--mp-border)] px-6 py-32 md:py-48 bg-[var(--mp-bg)]">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-[1000px] h-[80vw] max-h-[1000px] bg-gradient-to-r from-violet-600/20 via-fuchsia-600/10 to-cyan-600/20 rounded-full blur-[120px] pointer-events-none" style={{ animation: 'pulse-slow 6s infinite' }} />
 
-      <div className="relative mx-auto max-w-2xl text-center">
-        <h2 className="font-mono text-3xl font-bold tracking-tight sm:text-4xl">
-          Start in seconds.
-          <br />
-          <span className="bg-gradient-to-r from-[var(--mp-violet)] to-[var(--mp-pink)] bg-clip-text text-transparent">
-            Stay in control.
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
+        <h2 className="font-sans text-5xl font-black tracking-tight sm:text-7xl text-white mb-6">
+          Deploy in seconds.<br />
+          <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent animate-text-gradient">
+            Total control forever.
           </span>
         </h2>
 
-        <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[var(--mp-text-secondary)]">
-          Free, open-source, and ready to protect your AI&apos;s spending in one command.
+        <p className="mx-auto max-w-xl text-lg text-slate-400 mb-10">
+          Free, open-source, and ready to protect your AI&apos;s spending pipeline. Start managing virtual cards directly from your terminal today.
         </p>
 
-        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/docs"
-            className="group flex items-center gap-2 rounded-xl bg-gradient-to-r from-[var(--mp-violet)] to-[var(--mp-pink)] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[var(--mp-violet)]/25 transition hover:shadow-xl hover:shadow-[var(--mp-violet)]/30"
+            className="group relative inline-flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold text-black transition-all hover:bg-slate-200 hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
           >
-            Get Started
-            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+            Read the Documentation
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
 
           <button
             onClick={handleCopy}
-            className="group flex items-center gap-3 rounded-xl border border-[var(--mp-border)] bg-[var(--mp-bg-card)] px-5 py-3 font-mono text-sm shadow-lg shadow-black/20 transition hover:border-[var(--mp-violet)]/30"
+            className="group relative inline-flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-black/60 backdrop-blur-md px-8 py-4 font-mono text-sm text-white transition-all hover:bg-white/10 hover:border-violet-500/50"
           >
-            <span className="text-[var(--mp-text-muted)]">$</span>
-            <span className="text-[var(--mp-text)]">npx clawcard</span>
+            <Terminal className="h-4 w-4 text-violet-400 group-hover:text-white transition-colors" />
+            <span>npx clawcard</span>
             {copied ? (
-              <Check className="h-3.5 w-3.5 text-[var(--mp-green)]" />
+              <Check className="h-4 w-4 text-emerald-400" />
             ) : (
-              <Copy className="h-3.5 w-3.5 text-[var(--mp-text-muted)] transition group-hover:text-[var(--mp-text-secondary)]" />
+              <Copy className="h-4 w-4 text-slate-500 group-hover:text-white transition-colors" />
             )}
           </button>
         </div>
